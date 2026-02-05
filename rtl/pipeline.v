@@ -26,7 +26,7 @@ output signed [8:0] y_out,
 output signed [31:0] phase_out
 );
 
-    wire signed [8:0] x_stage [0:31]; //WHY 32 AND NOT 31?
+    wire signed [8:0] x_stage [0:31];
     wire signed [8:0] y_stage [0:31];
     wire signed [31:0] phase_stage [0:31];
 
@@ -40,13 +40,13 @@ generate
         for (i = 0; i < 31; i = i + 1) begin : cordic_stages
             cordic_phase_shifter #(
                 .DEPTH(i),
-                .LOG2_PHASE_SCALE(0)  // לשנות אם נדרש שינוי קנה מידה
+                .LOG2_PHASE_SCALE(0)
             ) stage_inst (
                 .clk(clk),
                 .rst_n(rst_n),
                 .x_in(x_stage[i]),
                 .y_in(y_stage[i]),
-                .p(phase_stage[i]), // קלט מטרה זהה לכולם
+                .p(phase_stage[i]),
                 .x_out(x_stage[i+1]),
                 .y_out(y_stage[i+1]),
                 .phase_final(phase_stage[i+1])
